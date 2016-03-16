@@ -1,1 +1,1 @@
-# curves
+# graphics-3-curves
