@@ -314,7 +314,7 @@ struct matrix * make_hermite() {
   coeff->m[1][0] = -3;
   coeff->m[1][1] = 3;
   coeff->m[1][2] = -2;
-  coeff->m[1][3] = 1;
+  coeff->m[1][3] = -1;
   coeff->m[2][0] = 0;
   coeff->m[2][1] = 0;
   coeff->m[2][2] = 1;
