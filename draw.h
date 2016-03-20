@@ -19,6 +19,8 @@ void add_circle( struct matrix * points,
 		 double r, double step );
 double param_x( double cx, double cy, double r, double t );
 double param_y( double cx, double cy, double r, double t );
+double cubic_x( double t, int type, double a, double b, double c, double d );
+double cubic_y( double t, int type, double a, double b, double c, double d );
 void add_curve( struct matrix *points,
 		double x0, double y0,
 		double x1, double y1,

@@ -69,12 +69,56 @@ to the matrix points
 03/16/12 15:24:25
 jdyrlandweaver
 ====================*/
+double cubic( double t, int type, double a, double b, double c, double d ) {
+  
+  if ( type == HERMITE_MODE )
+    return ( pow(t, 3)*a ) + ( pow(t, 2)*b ) + ( c*t ) + d;
+  
+}
+
+double rate( double t, double a, double b, double c, double d ) {
+ 
+  return ( 3*a*pow(t, 2) + 2*b*t + c ); 
+  
+}
+
 void add_curve( struct matrix *points,
 		double x0, double y0,
 		double x1, double y1,
 		double x2, double y2,
 		double x3, double y3,
 		double step, int type ) {
+		  
+		  double t, xi, yi, xf, yf, rx, ry;
+		  xi = x0;
+		  yi = y0;
+		  
+		  if ( type == HERMITE_MODE ) {
+		    struct matrix * xcons = generate_curve_coefs( x0, x1, x2, x3, type );
+		    struct matrix * ycons = generate_curve_coefs( y0, y1, y2, y3, type );
+		      for ( t = 0; t <= 1.00000001; t+=1.0/step ) {
+		        //points
+		        xf = cubic( t, type, xcons->m[0][0], xcons->m[1][0], xcons->m[2][0], xcons->m[3][0] );
+		        yf = cubic( t, type, ycons->m[0][0], ycons->m[1][0], ycons->m[2][0], ycons->m[3][0] );
+		        //rates
+		        rx = rate( t, xcons->m[0][0], xcons->m[1][0], xcons->m[2][0], xcons->m[3][0] );
+		        ry = rate( t, ycons->m[0][0], ycons->m[1][0], ycons->m[2][0], ycons->m[3][0] );
+		        //new point???
+		        xf = xf*rx;
+		        yf = yf*ry;
+		        //add
+		        add_edge( points, xi, yi, 0, xf, yf, 0 );
+		        xi = xf;
+		        yi = yf;
+		      }
+		  }
+		  else { // BEZIER_MODE
+		    //struct matrix * xcons = generate_curve_coefs( x0, x1, x2, x3, type );
+		    //struct matrix * ycons = generate_curve_coefs( y0, y1, y2, y3, type );
+		      for ( t = 0; t <= 1.00000001; t+=1.0/step) {
+		        //lol
+		      }
+		  }
 }
 
 /*======== void add_point() ==========
