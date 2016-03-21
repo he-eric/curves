@@ -215,8 +215,7 @@ void parse_file ( char * filename,
   		draw_lines(pm,s,c);
 		display(s);
 		fgets(line, 255, f);
-		if (strstr(line, "\n"))
-			line[strlen(line)-1]='\0';
+		line[strlen(line)-1]='\0';
 		save_extension(s, line);
   		}
 	}
