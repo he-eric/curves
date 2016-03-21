@@ -211,7 +211,7 @@ void parse_file ( char * filename,
   		draw_lines(pm,s,c);
   		display(s);
   	}
-  	else {
+  	else if (!strcmp(line, "save")) {
   		draw_lines(pm,s,c);
 		display(s);
 		fgets(line, 255, f);
